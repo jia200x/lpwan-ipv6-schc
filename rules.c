@@ -37,6 +37,10 @@ schc_rule_t *schc_get_rule_by_id(int rule_id) {
     return NULL;
 }
 
+schc_field_desc_t const *schc_field_next(schc_field_desc_t *fd) {
+    return fd->next ? (fd->next->next ? fd->next : NULL) : NULL;
+}
+
 int schc_rule_is_uplink(schc_rule_t *rule) {
     return rule->dir ==  DIR_IND_BI || rule->dir == DIR_IND_UP;
 }

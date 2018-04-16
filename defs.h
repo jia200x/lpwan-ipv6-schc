@@ -102,5 +102,6 @@ typedef struct {
 schc_rule_t *schc_get_rule_by_id(int rule_id);
 int schc_rule_is_uplink(schc_rule_t *rule);
 int schc_rule_is_downlink(schc_rule_t *rule);
+schc_field_desc_t const *schc_field_next(schc_field_desc_t *fd);
 
 #endif
