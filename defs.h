@@ -74,7 +74,8 @@ typedef struct {
     size_t size;
 } schc_buffer_t;
 
-typedef struct {
+typedef struct schc_field_desc_t schc_field_desc_t;
+struct schc_field_desc_t{
     schc_fid_t fid;
     char fl;
     char fp;
@@ -83,7 +84,8 @@ typedef struct {
     char cda;
     char *tv;
     size_t tv_size;
-} schc_field_desc_t;
+    schc_field_desc_t const *next;
+};
 
 typedef schc_field_desc_t schc_rule_content_t;
 
@@ -93,8 +95,8 @@ typedef struct {
     char dir;
 } schc_rule_t;
 
-#define FIELD_DESCRIPTION(FID, FL, FP, DI, MO, CDA, TV) \
-    {.fid=FID, .fl=FL, .fp=FP, .di=DI, .mo=MO, .cda=CDA, .tv_size=sizeof(TV)-1, .tv=TV}
+#define FIELD_DESCRIPTION(FID, FL, FP, DI, MO, CDA, TV, NAME, POS) \
+    [POS]={.fid=FID, .fl=FL, .fp=FP, .di=DI, .mo=MO, .cda=CDA, .tv_size=sizeof(TV)-1, .tv=TV, .next=&(NAME)[POS+1]}
 #define END_OF_TABLE {0}
 
 schc_rule_t *schc_get_rule_by_id(int rule_id);
