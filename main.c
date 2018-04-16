@@ -1,6 +1,10 @@
 #include <stdio.h>
+#include "defs.h"
 
 int main() {
-    printf("Hello World!");
+    schc_rule_t *rule = schc_get_rule_by_id(1);
+    printf("Pointer: %p\n", rule);
+    printf("Is uplink rule: %i\n", schc_rule_is_uplink(rule));
+    printf("Is downlink rule: %i\n", schc_rule_is_downlink(rule));
     return 0;
 }

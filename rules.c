@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include "defs.h"
 
 
@@ -22,13 +23,15 @@ schc_field_desc_t rule_0[] = {
 
 schc_rule_t rules[]={
     {.rule_id=1, .rule=rule_0, .dir=DIR_IND_BI},
+    END_OF_TABLE
 };
 
 schc_rule_t *schc_get_rule_by_id(int rule_id) {
     int i=0, r=0;
-    while(r=rules[i++].rule_id) {
-        if (rules[r].rule_id = rule_id)
-            return &rules[r];
+    while(r=rules[i].rule_id) {
+        if (r == rule_id)
+            return &rules[i];
+        i++;
     }
     return NULL;
 }
