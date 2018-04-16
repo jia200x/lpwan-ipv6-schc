@@ -13,6 +13,8 @@ int main() {
     //Iterate through all rules:
     schc_field_desc_t *r = rule[0].rule;
 
+    printf("Next rule pointer: %p\n", schc_rule_next(rule));
+
     while(r) {
         printf("Current rule FID is: %i\n", r->fid);
         r = (schc_field_desc_t*) schc_field_next(r);

@@ -22,7 +22,7 @@ schc_field_desc_t rule_0[] = {
 };
 
 schc_rule_t rules[]={
-    {.rule_id=1, .rule=rule_0, .dir=DIR_IND_BI},
+    RULE(1, rule_0, DIR_IND_BI, rules, 0),
     END_OF_TABLE
 };
 
@@ -35,6 +35,10 @@ schc_rule_t *schc_get_rule_by_id(int rule_id) {
         i++;
     }
     return NULL;
+}
+
+schc_rule_t const *schc_rule_next(schc_rule_t *rule) {
+    return rule->next ? (rule->next->next ? rule->next : NULL) : NULL;
 }
 
 schc_field_desc_t const *schc_field_next(schc_field_desc_t *fd) {

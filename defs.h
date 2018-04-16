@@ -89,19 +89,24 @@ struct schc_field_desc_t{
 
 typedef schc_field_desc_t schc_rule_content_t;
 
-typedef struct {
+typedef struct schc_rule_t schc_rule_t;
+struct schc_rule_t{
     char rule_id;
     schc_field_desc_t *rule;
     char dir;
-} schc_rule_t;
+    schc_rule_t const *next;
+};
 
 #define FIELD_DESCRIPTION(FID, FL, FP, DI, MO, CDA, TV, NAME, POS) \
     [POS]={.fid=FID, .fl=FL, .fp=FP, .di=DI, .mo=MO, .cda=CDA, .tv_size=sizeof(TV)-1, .tv=TV, .next=&(NAME)[POS+1]}
 #define END_OF_TABLE {0}
+#define RULE(FID, NAME, DIR, TABLE, POS) \
+    [POS]={.rule_id=FID, .rule=NAME, .dir=DIR, .next=&(TABLE)[POS+1]}
 
 schc_rule_t *schc_get_rule_by_id(int rule_id);
 int schc_rule_is_uplink(schc_rule_t *rule);
 int schc_rule_is_downlink(schc_rule_t *rule);
 schc_field_desc_t const *schc_field_next(schc_field_desc_t *fd);
+schc_rule_t const *schc_rule_next(schc_rule_t *rule);
 
 #endif
