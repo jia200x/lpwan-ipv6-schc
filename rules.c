@@ -1,7 +1,8 @@
+#include <stdlib.h>
 #include "defs.h"
 
 
-schc_field_desc_t[] rule_0 = {
+schc_field_desc_t rule_0[] = {
     FIELD_DESCRIPTION(FID_IPV6_VER, 4, 1, DIR_IND_BI, MO_EQUAL, CDA_NOT_SENT, "x06"),
     FIELD_DESCRIPTION(FID_IPV6_DS, 8, 1, DIR_IND_BI, MO_EQUAL, CDA_NOT_SENT, "x00"),
     FIELD_DESCRIPTION(FID_IPV6_FL, 20, 1, DIR_IND_BI, MO_EQUAL, CDA_NOT_SENT, "x00"),
@@ -17,15 +18,14 @@ schc_field_desc_t[] rule_0 = {
     FIELD_DESCRIPTION(FID_UDP_LEN, 16, 1, DIR_IND_BI, MO_IGNORE, CDA_COMPUTE_LENGTH, ""),
     FIELD_DESCRIPTION(FID_UDP_CHKS, 16, 1, DIR_IND_BI, MO_IGNORE, CDA_COMPUTE_CHECKSUM, ""),
     END_OF_TABLE
-} 
-
-schc_rule_t[] rules={
-    {.rule_id=1, .rule=&rule_0, dir=DIR_IND_BI},
-    END_OF_TABLE
 };
 
-schc_field_desc_t *schc_get_rule_by_id(int rule_id) {
-    int i=0;
+schc_rule_t rules[]={
+    {.rule_id=1, .rule=rule_0, .dir=DIR_IND_BI},
+};
+
+schc_rule_t *schc_get_rule_by_id(int rule_id) {
+    int i=0, r=0;
     while(r=rules[i++].rule_id) {
         if (rules[r].rule_id = rule_id)
             return &rules[r];
@@ -37,6 +37,6 @@ int schc_rule_is_uplink(schc_rule_t *rule) {
     return rule->dir ==  DIR_IND_BI || rule->dir == DIR_IND_UP;
 }
 
-int schc_rule_is_downlink(int rule_id) {
+int schc_rule_is_downlink(schc_rule_t *rule) {
     return rule->dir ==  DIR_IND_BI || rule->dir == DIR_IND_DOWN;
 }

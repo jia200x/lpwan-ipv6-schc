@@ -85,7 +85,7 @@ typedef struct {
     size_t tv_size;
 } schc_field_desc_t;
 
-typedef schc_field_desc_t[] schc_rule_content_t;
+typedef schc_field_desc_t schc_rule_content_t;
 
 typedef struct {
     char rule_id;
